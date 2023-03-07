@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define NAME_SIZE 20
 
 typedef struct point {
     double x;
@@ -35,31 +34,22 @@ void print_error(int column, int status)
     printf("^\n");
     switch (status) {
     case ER_NAME:
-        printf("Error at column %d: expected "
-               "'circle'\n",
-               column);
+        printf("Error at column %d: expected 'circle'\n", column);
         break;
     case ER_NOT_DOUBLE:
-        printf("Error at column %d: expected "
-               "'<double>'\n",
-               column);
+        printf("Error at column %d: expected '<double>'\n", column);
         break;
     case ER_BACK_BRACE:
-        printf("Error at column %d: expected ')'\n",
-               column);
+        printf("Error at column %d: expected ')'\n", column);
         break;
     case ER_UNEXPECT_TOKEN:
-        printf("Error at column %d: expected "
-               "token\n",
-               column);
+        printf("Error at column %d: expected token\n", column);
         break;
     case ER_EXPECT_COMMA:
-        printf("Error at column %d: expected ','\n",
-                column);
+        printf("Error at column %d: expected ','\n", column);
         break;
     case ER_UNEXPECT_COMMA:
-        printf("Error at column %d: expected ','\n",
-               column);
+        printf("Error at column %d: expected ','\n", column);
     }
 }
 
@@ -176,7 +166,7 @@ void end_of_line(int* column, FILE* scan)
     }
 }
 
-void take_info_circle(Circle* circle, int* column, FILE* scan)
+void set_info_circle(Circle* circle, int* column, FILE* scan)
 {
         get_point(&circle->point, column, scan);
         expect(',', column, ER_EXPECT_COMMA, scan);
@@ -193,10 +183,7 @@ void take_info_circle(Circle* circle, int* column, FILE* scan)
 
 void show_info_circle(Circle* circle)
 {
-    printf("circle(%.2f %.2f, %.2f)\n",
-           circle->point.x,
-           circle->point.y,
-           circle->radius);
+    printf("circle(%.2f %.2f, %.2f)\n", circle->point.x, circle->point.y, circle->radius);
     printf("area = %.4f\n", circle->area);
     printf("perimeter = %.4f\n", circle->perimeter);
 }
@@ -204,19 +191,19 @@ void show_info_circle(Circle* circle)
 
 int main()
 {
-    char geom[NAME_SIZE] = {0};
+    char geom[20] = {0};
     char ch;
     int column;
 
-    puts("Enter a geometric shape (or q for exit):");
+    puts("Enter a geometric shape or q(for exit):");
     while ((ch = getc(stdin)) != EOF && ch != 'q') {
         column = 0;
         do {
             if (ch == '(' || ch == ' ') {
                 if (strcmp(geom, "circle") == 0) {
                     Circle circle;
-                    take_info_circle(&circle, &column, stdin);
-                    printf("\nYou have entered: \n");
+                    set_info_circle(&circle, &column, stdin);
+                    printf("\nResult: \n");
                     show_info_circle(&circle);
                     break;
                 } else {
