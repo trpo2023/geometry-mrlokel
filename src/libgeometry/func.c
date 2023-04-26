@@ -4,27 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct point {
-    double x;
-    double y;
-} Point;
-
-typedef struct circle {
-    Point point;
-    double radius;
-    double perimeter;
-    double area;
-} Circle;
-
-enum Errors {
-    ER_NAME,
-    ER_NOT_DOUBLE,
-    ER_BACK_BRACE,
-    ER_UNEXPECT_TOKEN,
-    ER_EXPECT_COMMA,
-    ER_UNEXPECT_COMMA,
-};
+#include "func.h"
 
 void print_error(int column, int status)
 {
@@ -186,41 +166,4 @@ void show_info_circle(Circle* circle)
     printf("circle(%.2f %.2f, %.2f)\n", circle->point.x, circle->point.y, circle->radius);
     printf("area = %.4f\n", circle->area);
     printf("perimeter = %.4f\n", circle->perimeter);
-}
-
-
-int main()
-{
-    char geom[20] = {0};
-    char ch;
-    int column;
-
-    puts("Enter a geometric shape or q(for exit):");
-    while ((ch = getc(stdin)) != EOF && ch != 'q') {
-        column = 0;
-        do {
-            if (ch == '(' || ch == ' ') {
-                if (strcmp(geom, "circle") == 0) {
-                    Circle circle;
-                    set_info_circle(&circle, &column, stdin);
-                    printf("\nResult: \n");
-                    show_info_circle(&circle);
-                    break;
-                } else {
-                    print_error(0, ER_NAME);
-                    exit(EXIT_FAILURE);
-                }
-            }
-
-            if (ch == ')') {
-                print_error(column, ER_BACK_BRACE);
-                exit(EXIT_FAILURE);
-            }
-
-            geom[column++] = ch;
-
-        } while ((ch = getc(stdin)) != '\n');
-    }
-
-    return 0;
 }
