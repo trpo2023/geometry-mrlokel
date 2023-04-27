@@ -1,10 +1,10 @@
+#include "func.h"
 #include <ctype.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "func.h"
 
 void print_error(int column, int status)
 {
@@ -110,8 +110,8 @@ bool expect(char expect, int* column, int status, FILE* scan)
     if ((ch = getc(scan)) == expect) {
         return true;
     } else {
-            print_error(*column, status);
-            exit(EXIT_FAILURE);
+        print_error(*column, status);
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -148,22 +148,25 @@ void end_of_line(int* column, FILE* scan)
 
 void set_info_circle(Circle* circle, int* column, FILE* scan)
 {
-        get_point(&circle->point, column, scan);
-        expect(',', column, ER_EXPECT_COMMA, scan);
+    get_point(&circle->point, column, scan);
+    expect(',', column, ER_EXPECT_COMMA, scan);
 
-        circle->radius = get_number(column, scan);
+    circle->radius = get_number(column, scan);
 
-        expect(')', column, ER_BACK_BRACE, scan);
+    expect(')', column, ER_BACK_BRACE, scan);
 
-        end_of_line(column, scan);
-    
+    end_of_line(column, scan);
+
     circle->perimeter = 2 * 3.14 * circle->radius;
     circle->area = 3.14 * circle->radius * circle->radius;
 }
 
 void show_info_circle(Circle* circle)
 {
-    printf("circle(%.2f %.2f, %.2f)\n", circle->point.x, circle->point.y, circle->radius);
+    printf("circle(%.2f %.2f, %.2f)\n",
+           circle->point.x,
+           circle->point.y,
+           circle->radius);
     printf("area = %.4f\n", circle->area);
     printf("perimeter = %.4f\n", circle->perimeter);
 }
