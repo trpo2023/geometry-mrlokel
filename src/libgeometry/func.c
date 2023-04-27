@@ -1,5 +1,5 @@
-#include "func.h"
 #include <ctype.h>
+#include <libgeometry/func.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
