@@ -11,7 +11,7 @@ SRC_DIR = src
 
 APP_PATH = $(BIN_DIR)/$(APP_NAME)
 LIB_PATH = $(OBJ_DIR)/$(SRC_DIR)/$(LIB_NAME)/$(LIB_NAME).a
-
+Ц
 APP_SOURCES = $(wildcard $(SRC_DIR)/$(APP_NAME)/*.c)
 APP_OBJECTS = $(patsubst %.c, $(OBJ_DIR)/%.o, $(APP_SOURCES))
 
