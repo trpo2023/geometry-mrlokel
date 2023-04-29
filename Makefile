@@ -34,6 +34,10 @@ $(LIB_PATH): $(LIB_OBJECTS)
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(DEPSFLAGS) -c -o $@ $< -lm
 
+# RUN
+run: all
+	$(APP_PATH) $(BIN_DIR)
+
 .PHONY: clean
 clean:
 	$(RM) $(APP_PATH) $(OBJ_DIR)/$(SRC_DIR)/*/*.[aod]
