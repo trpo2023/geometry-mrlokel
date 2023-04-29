@@ -45,16 +45,3 @@ CTEST(func, unexpect)
 
     ASSERT_EQUAL(expect, result);
 }
-
-CTEST(func, get_point)
-{
-    FILE* file = fopen("read_str.txt", "w+");
-    fprintf(file, " g g");
-    fseek(file, 0, SEEK_SET);
-
-    int len = 10;
-    int* count = &len;
-
-    Circle circle;
-    get_point(&circle->point, count, file);
-}
